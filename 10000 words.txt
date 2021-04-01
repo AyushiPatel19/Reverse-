@@ -1,0 +1,511 @@
+Greedy algorithms often involve optimization and combinatorial problems; the classic example is to apply the greedy
+algorithm to the traveling salesperson problem, where a greedy approach always chooses the closest destination first.
+This shortest-path strategy involves finding the best solution to a local problem in the hope that this will lead to a
+global solution. Another classic example is to apply the greedy algorithm   to the traveling salesperson problem; it
+is an NP-hard problem. In this problem, a greedy approach always chooses the closest unvisited city first from the
+current city; in this way, we are not sure that we get the best solution, but we surely get an optimal solution. This
+shortest-path strategy involves finding the best solution to a local problem in the hope that this will lead to a
+global solution.
+The dynamic programming approach is useful when our sub-problems overlap. This is different from divide and conquer.
+Rather than breaking our problem into independent sub-problems, with dynamic programming, intermediate results are
+cached and can be used in subsequent operations. Like divide and conquer, it uses recursion; however, dynamic
+programming allows us to compare results at different stages. This can have a performance advantage over the divide
+and conquer for some problems because it is often quicker to retrieve a previously calculated result from memory
+rather than having to recalculate it. Dynamic programming also uses recursion to solve the problems. For example,
+the matrix chain multiplication problem can be solved using dynamic programming. The matrix chain multiplication
+problem determines the best effective way to multiply the matrices when a sequence of matrices is given, it finds
+the order of multiplication that requires the minimum number of operations.
+It may not necessarily be clear if recursion or iteration is a better solution to a particular problem; after all,
+they both repeat a series of operations and both are very well-suited to divide and conquer approaches and to
+algorithm design. Iteration churns away until the problem is done with. Recursion breaks the problem down into
+smaller and smaller chunks and then combines the results. Iteration is often easier for programmers, because control
+stays local to a loop, whereas recursion can more closely represent mathematical concepts such as factorials. Recursive
+calls are stored in memory, whereas iterations are not. This creates a trade-off between processor cycles and memory
+usage, so choosing which one to use may depend on whether the task is processor or memory intensive.
+Backtracking is a form of recursion that is particularly useful for types of problems such as traversing tree
+structures, where we are presented with a number of options for each node, from which we must choose one. Subsequently,
+we are presented with a different set of options, and depending on the series of choices made, either a goal state or a
+dead end is reached. If it is the latter, we must backtrack to a previous node and traverse a different branch.
+Backtracking is a divide and conquer method for exhaustive searching. Importantly, backtracking prunes branches that
+cannot give a result.
+For recursion to be more than just a clever trick, we need to understand how to compare it to other approaches, such
+as iteration, and to understand when its use will lead to a faster algorithm. An iterative algorithm that we are all
+familiar with is the procedure we learned in primary math classes and is used to multiply two large numbers. That is
+long multiplication. If you remember, long multiplication involved iterative multiplying and carry operations followed
+by a shifting and addition operation. Our aim here is to examine ways to measure how efficient this procedure is and
+attempt to answer the question—is this the most efficient procedure we can use for multiplying two large numbers
+together?
+
+It should be pointed out that this suggests a recursive approach to multiplying two numbers since this procedure does
+itself involve multiplication. Specifically, the products, ad, bc, and bd all involve numbers smaller than the input
+number and so it is conceivable that we could apply the same operation as a partial solution to the overall problem.
+This algorithm, so far, consists of four recursive multiplication steps and it is not immediately clear if it will be
+faster than the classic long multiplication approach.
+The performance of an algorithm is generally measured by the size of its input data (n) and the time and the memory
+space used by the algorithm. Time required is measured by the key operations to be performed by the algorithm (such as
+comparison operations), whereas the space requirements of an algorithm is measured by the storage needed to store the
+variables, constants, and instructions during the execution of the program. The space requirements of an algorithm may
+also change dynamically during execution as it depends on variable size, which is to be decided at runtime, such as
+dynamic memory allocation, memory stacks, and so on. The running time required by an algorithm depends on the input
+size; as the input size (n)increases, the runtime also increases. For example, a sorting algorithm will have more
+running time to sort the list of input size 5,000 as compared to the other list of input size 50.Therefore, it is
+clear that to compute the time complexity, the input size is important. Further, for a specific input, the running
+time depends on the key operations to be executed in the algorithm. For example, the key operation for a sorting
+algorithm is a comparison operation that will take most of the time as compared to assignment or any other operation.
+The more is the number of key operations to be executed, the longer it will take to run thealgorithm.It should be noted
+that an important aspect to algorithm design is gauging the efficiency both in terms of space (memory) and time (number
+of operations). It should be mentioned that an identical metric is used to measure an algorithm's memory performance.
+There are a number of ways we could, conceivably, measure runtime and probably the most obvious way is to simply
+measure the total time taken by the algorithm. The major problem with this approach is that the time taken for an
+algorithm to run is very much dependent on the hardware it is run on. A platform-independent way to gauge an
+algorithm's runtime is to count the number of operations involved. However, this is also problematic as there is no
+definitive way to quantify an operation. This is dependent on the programming language, the coding style, and how we
+decide to count operations. We can use this idea, though, of counting operations, if we combine it with the expectation
+that as the size of the input increases the runtime will increase in a specific way. That is, there is a mathematical
+relationship between n, the size of the input, and the time it takes for the algorithm to run.
+Worst-case analysis is useful because it gives us a tight upper bound that our algorithm is guaranteed not to exceed.
+Ignoring small constant factors, and lower-order terms, is really just about ignoring the things that, at large values
+of the input size, n, do not contribute, in a large degree, to the overall run time. Not only does this make our work
+mathematically easier, but it also allows us to focus on the things that are having the most impact on performance. We
+saw with the Karatsuba algorithm that the number of multiplication operations increased to the square of the size, n,
+of the input. If we have a four-digit number the number of multiplication operations is 16; an eight-digit number
+requires 64 operations. Typically, though, we are not really interested in the behaviour of an algorithm at small
+values of n, so we most often ignore factors that increase at slower rates, say linearly with n. This is because at
+high values of n, the operations that increase the fastest as we increase n will dominate. We will explain this in more
+detail with an example: the merge sort algorithm. Sorting is the subject of Chapter 10, Sorting, however, as a
+precursor and as a useful way to learn about runtime performance, we will introduce merge sort here. The merge sort
+algorithm is a classic algorithm developed over 60 years ago. It is still used widely in many of the most popular
+sorting libraries. It is relatively simple and efficient. Itis a recursive algorithm that uses a divide and conquer
+approach. This involves breaking the problem into smaller sub-problems, recursively solving them, and then somehow
+combining the results. Merge sort is one of the most obvious demonstrations of the divide and conquer paradigm.
+Each invocation of merge sort subsequently creates two recursive calls, so we can represent this with a binary tree.
+Each of the child nodes receives a subset of the input. Ultimately, we want to know the total time it takes for the
+algorithm to complete relative to the size of n. To begin with, we can calculate the amount of work and the number of
+operations at each level of the tree. Focusing on the runtime analysis, at level one, the problem is split into two
+n/2 sub-problems; at level two, there are four n/4 subproblems, and so on. The question is, when does the recursion
+bottom out, that is, when does it reach its base case? This is simply when the array is either zero or one.
+The number of recursive levels is exactly the number of times you need to divide n by two until you get a number that
+is at most one. This is precisely the definition of log2. Since we are counting the initial recursive call as level
+zero, the total number of levels is log2n + 1.Let's just pause to refine our definitions. So far, we have been
+describing the number of elements in our input by the letter n. This refers to the number of elements in the first
+level of the recursion, that is, the length of the initial input. We are going to need to differentiate between the
+size of the input at subsequent recursive levels. For this, we will use the letter or specifically mj for the length
+of the input at recursive level also, there are a few details we have overlooked, and I am sure you are beginning to
+wonder about. For example, what happens when m/2 is not an integer, or when we have duplicates in our input array? It
+turns out that this does not have an important impact on our analysis here; we will revisit some of the finer details
+of the merge sort algorithm in Chapter 12, Design Techniques and Strategies. The advantage of using a recursion tree
+to analyse algorithms is that we can calculate the work done at each level of the recursion. How we define this work
+is simply by the total number of operations and this, of course, is related to the size of the input. It is important
+to measure and compare the performance of algorithms in a platform-independent way. The actual runtime will, of course,
+be dependent on the hardware on which it is run. Counting the number of operations is important because it gives us a
+metric that is directly related to an algorithm's performance, independent of the platform. In general, since each
+invocation of merge sort is making two recursive calls, the number of calls is doubling at each level. At the same
+time, each of these calls is working on an input that is half of its parents. We can formalize this and say that for
+level j, where j is an integer0, 1, 2 ... log2n, there are two sub-problems each of size n/2j.To calculate the total
+number of operations, we need to know the number of operations encompassed by a single merge of two sub-arrays. Let's
+count the number of operations in the previous Python code. What we are interested in is all the code after the two
+recursive calls have been made. Firstly, we have the three assignment operations. This is followed by three while
+loops. In the first loop, we have an if-else statement and within each of our two operations, a comparison followed
+by an assignment. Since there are only one of these sets of operations within the if-else statements, we can count this
+block of code as two operations carried out m times. This is followed by two while loops with an assignment operation
+each. This makes a total of 4m + 3 operations for each recursion of merge sort.
+Asymptotic analysis of an algorithm refers to the computation of the running time of the algorithm. To determine which
+algorithm is better, given two algorithms, a simple approach can be to run both the programs, and the algorithm that
+takes the least time to execute for a given input is better than the other. However, it is possible that for a specific
+input, one algorithm performs better than other, whereas for any other input value that the algorithm may perform worse.
+In asymptotic analysis, we compare two algorithms with respect to input size rather than the actual runtime, and we
+measure how the time taken increases with the increase in input size.
+Generally, we use worst-case analysis to analyse an algorithm as it provides us with the upper bound on the running
+time,whereas best-case analysis is the least important as it provides us with the lower bound—that is, a minimum time
+required for an algorithm. Furthermore, the computation of average-case analysis is very difficult. To calculate each
+of these, we need to know the upper and lower bounds. We have looked at a way to represent an algorithm's runtime using
+mathematical expressions, essentially adding and multiplying operations. To use asymptotic analysis, we simply create
+two expressions, one each for the best and worst cases.
+Often we are not so interested in the time complexity of individual operations; we are more interested in the average
+running time of sequences of operations. This is called amortized analysis. It is different from average-case analysis,
+which we will discuss shortly, in that we make no assumptions regarding the data distribution of input values. It does,
+however, take into account the state change of data structures. For example, if a list is sorted, any subsequent find
+operations should be quicker. The amortized analysis considers the state change of data structures because it analyses
+sequences of operations, rather than simply aggregating single operations. Amortized analysis describes an upper bound
+on the runtime of the algorithm; it imposes an additional cost on each operation in the algorithm. The additional
+considered cost of a sequence may be cheaper as compared to the initial expensive operation. When we have a small number
+of expensive operations, such as sorting, and lots of cheaper operations such as lookups, standard worst-case analysis
+can lead to overly pessimistic results, since it assumes that each lookup must compare each element in the list until a
+match is found. We should take into account that once we sort the list we can make subsequent find operations cheaper.
+Average-case analysis will find the average running time which is based on some assumptions regarding the relative
+frequencies of various input values. Using real-world data, or data that replicates the distribution of real-world data,
+is many times on a particular data distribution and the average running time is calculated. Benchmarking is simply
+having an agreed set of typical inputs that are used to measure performance. Both benchmarking and average-time analysis
+rely on having some domain knowledge. We need to know what the typical or expected datasets are. Ultimately, we will try
+to find ways to improve performance by fine-tuning to a very specific application setting. Let's look at a
+straightforward way to benchmark an algorithm's runtime performance. This can be done by simply timing how long the
+algorithm takes to complete given various input sizes. As we mentioned earlier, this way of measuring runtime
+performance is dependent on the hardware that it is run on. Obviously, faster processors will give better results,
+however, the relative growth rates as we increase the input size will retain characteristics of the algorithm itself
+rather than the hardware it is run on. The absolute time values will differ between hardware (and software) platforms;
+however, their relative growth will still be bound by the time complexity of the algorithm. Let’s take a simple example
+of a nested loop. It should be fairly obvious that the time complexity of this algorithm is O(n2) since for each n
+iterations in the outer loop there are also n iterations in the interloop.
+In this chapter, we have looked at a general overview of algorithm design. Importantly, we studied a
+platform-independent way to measure an algorithm's performance. We looked at some different approaches to algorithmic
+problems. We looked at a way to recursively multiply large numbers and also a recursive approach for merge sort. We
+learned how to use backtracking for exhaustive search and generating strings. We also introduced the idea of
+benchmarking and a simple platform-dependent way to measure runtime. In the following chapters, we will revisit
+many of these ideas with reference to specific data structures. In the next chapter, we will discuss linked lists and
+other pointer structures.
+We have discussed lists in Python, and these are convenient and powerful. Normally, most of the time, we use Python's
+built-in list implementation to store any data. However, in this chapter, we will be understanding how lists work and
+will be studying list internals. Python’s list implementation is quite powerful and can encompass several different use
+cases. The concept of a node is very important in lists. We shall discuss them in this chapter and will be referring to
+them throughout the book. Thus, we suggest readers study the content of this chapter carefully.
+Let's remind you about the concept of pointers as we will be dealing with them in this chapter. To begin with, imagine
+that you have a house that you want to sell. Lacking time, you contact an agent to find interested buyers. So, you pick
+up your house and take it over to the agent, who will, in turn, carry the house to anybody who may want to buy it. Now
+imagine that you have a few Python functions that work with images. So, you pass high-resolution image data between
+your functions. Of course, you don't carry your house around. What you do is write the address of the house down on a
+piece of scrap paper and hand it over to the agent. The house remains where it is, but the note containing the
+directions to the house is passed around. You might even write it down on several pieces of paper. Each one is small
+enough to fit in your wallet, but they all point to the same house. As it turns out, things are not very different in
+Python land. Those large image files remaining one single place in memory. What you do is create variables that hold
+the locations of those images in memory. These variables are small and can easily be passed around between different
+functions. That is the big benefit of pointers—they allow you to point to a potentially large segment of memory with
+just a simple memory address. Support for pointers exists in your computer's hardware, where it is known as indirect
+addressing. In Python, you don't manipulate pointers directly, unlike in some other languages, such as C or Pascal.
+This has led some people to think that pointers aren't used in Python.
+An array is a sequential list of data. Being sequential means that each element is stored right after the previous one
+in memory. If your array is really big and you are low on memory, it could be impossible to find large enough storage
+to fit your entire array. This will lead to problems. Of course, the flip side of the coin is that arrays are very fast.
+Since each element follows on from the previous one in memory, there is no need to jump around between different memory
+locations. This can be a very important point to take into consideration when choosing between a list and an array in
+your own real-world applications.
+Contrary to arrays, pointer structures are lists of items that can be spread out in memory. This is because each item
+contains one or more links to other items in the structure. The types of these links are dependent on the type of
+structures we have. If we are dealing with linked lists, then we will have links to the next (and possibly previous)
+items in the structure. In the case of a tree, we have parent-child links as well as sibling links. There are several
+benefits to pointer structures. First of all, they don't require sequential storage space. Secondly, they can start
+small and grow arbitrarily as you add more nodes to the structure. However, this flexibility in pointers comes at a
+cost. We need additional space to store the address. For example, if you have a list of integers, each node is going to
+take up space by storing an integer, as well as an additional integer for storing the pointer to the next node.
+Another common operation that you will perform on a list is to delete nodes. This may seem simple, but we first have to
+decide how to select a node for deletion. Is it going to be determined by the index number or by the data the node
+contains? Here, we will choose to delete a node depending on the data it contains.
+A doubly linked list is quite similar to the singly linked list in the sense that we use the same fundamental concept
+of string nodes together, as we did in a singly linked list. The only difference between a singly linked list and a
+doubly linked list is that in a singly linked list, there is only one link between each successive node, whereas, in a
+doubly linked list, we have two pointers—a pointer to the next node and a pointer to the previous node. Seethe following
+diagram of a node; there is a pointer to the next node and the previous node, which are set to None as there is no node
+attached to this node.
+A node in a singly linked list can only determine the next node associated with it. However, there is no way or link to
+go back from this referenced node. The direction of flow is only one way. In a doubly linked list, we solve this issue
+and include the ability not only to reference the next node but also to reference the previous node. Consider the
+following example diagram to understand the nature of the linkages between two successive nodes.
+Doubly linked lists can be traversed in any direction. A node in a doubly linked list can be easily referred to its
+previous node whenever required without having a variable to keep track of that node. However, in a singly linked list,
+it may be difficult to move back to the start or beginning of the list in order to make some changes at the start of the
+list, which is very easy now in the case of a doubly linked list.
+Doubly linked lists also require functionalities that return the size of the list, insert items into the list, and also
+delete nodes from the list. We will be discussing and providing important functionalities and code on the doubly linked
+list in the following subsections. Let’s start with the append operation.
+A circular linked list is a special case of a linked list. In a circular linked list, the endpoints are connected to
+each other. It means that the last node in the list points back to the first node. In other words, we can say that in
+circular linked lists all the nodes point to the next node (and the previous node in the case of a doubly linked list)
+and there is no end node, thus no node will point to Null. Circular lists can be based on both singly and doubly linked
+lists. In the case of a doubly linked circular list, the first node points to the last node and the last node points
+back to the first node.
+There is another important operation that can be applied on stacks—the peek method. This method returns the top element
+from the stack without deleting it from the stack. The only difference between peek and pop is that the peek method
+just returns the topmost element; however, in the case of a pop method, the topmost element is returned and also that
+element is deleted from the stack.
+Another special type of list is the queue data structure. The queue data structure is very similar to the regular queue
+you are accustomed to in real life. If you have stood in line at an airport or to be served your favourite burger at
+your neighbourhood shop, then you should know how things work in a queue. Queues are very fundamental and an important
+concept to grasp since many other data structures are built on them.
+A queue works as follows. The first person to join the queue usually gets served first, and everyone will be served in
+the order of how they joined the queue. The acronym FIFO best explains the concept of a queue. FIFO stands for first in,
+first out. When people are standing in a queue waiting for their turn to be served, service is only rendered at the
+front of the queue. The only time people exit the queue is when they have been served, which only occurs at the very
+front of the queue. See the following diagram, where people are standing in the queue, and the person in the front would
+be served first.
+To join the queue, participants must stand behind the last person in the queue. This is the only legal or permitted way
+the queue accepts new entrants. The length of the queue does not matter. We shall provide various implementations of a
+queue, but this will revolve around the same concept of FIFO. The item added first will be read first. We shall call the
+operation to add an element to the queue as enqueue. When we delete an element from the queue, we shall call this a
+dequeue operation. Whenever an element is enqueued, the length or size of the queue increments by 1. Conversely,
+dequeuing items reduces the number of elements in the queue by 1.
+It is important to note how we implement insertions in queues using list. The concept is that we add the items at index
+0 in a list; it is the first position in an array or list. To understand the concept of how the queue works when we add
+items at index 0 in a list, consider the following diagram. We start with an empty list. Initially, we add an item 1 at
+index 0. Next, we add an item 2 at index 0; it will shift the previously added item to the next index.
+Using a Python list to implement a queue is a good start to get a feel for how queues work. It is also possible for us
+to implement our own queue data structure by utilizing pointer structures. A queue can be implemented using a doubly
+linked list, and insertion and deletion operations on this data structure, and that has a time complexity of O(1).The
+definition for the node class remains the same as the Node we defined when we discussed in the doubly linked lists. A
+doubly linked list can be treated as a queue if it enables a FIFO kind of data access, where the first element added to
+the list is the first to be removed.
+Queues can be used to implement a variety of functionalities in many real computer-based applications. For instance,
+instead of providing each computer on a network with its own printer, a network of computers can be made to share one
+printer by queuing what each printer wants to print. When the printer is ready to print, it will pick one of the items
+(usually called jobs) in the queue to print out. It will print the command from the computer that has given the command
+first and in the order of the commands given by different computers.
+A tree is a hierarchical form of data structure. In the case of other data structures such as lists, queues, and stacks
+that we have discussed till now, the items are stored in a sequential way. However, in the case of a tree data
+structure, there is a parent-child relationship between the items. The top of the tree's data structure is known as a
+root node. This is the ancestor of all other nodes in the tree. Tree data structures are very important owing to their
+use in various important applications. Trees are used for a number of things, such as parsing expressions, searches,
+storing data, manipulating data, sorting, priority queues, and so on. Certain document types, such as XML and HTML, can
+also be represented in a tree form. We shall look at some of the uses of trees in this chapter.
+In linear data structures, data items are stored in a sequential order, one after another, whereas nonlinear data
+structures store data items in a non-linear order, where a data item can be connected to more than one data item. All
+of the data items in the linear data structures can be traversed in one pass, whereas this is not possible in the case
+of a non-linear data structure. The trees are the non-linear data structure; they store the data differently from other
+linear data structures such as arrays, lists, stacks, and queues.
+The root node of the tree is considered to be at level 0. The children of the root node are considered at level 1.
+In depth-first traversal, we traverse the tree, starting from the root, and go deeper into the tree as much as possible
+on each child, and then continue to traverse to the next sibling. We use the recursive approach for tree traversal.
+There are three forms of depth-first traversal, namely, in-order, pre-order, and post-order.
+In the example binary tree for in-order traversal, first, we recursively visit the left sub-tree of the root node A. The
+left sub-tree of node A has node B as root, so we again go to the left sub-tree of the root node B, that is, node D. We
+recursively go to the left sub-tree of root node D so that we get the left child with root node D. So, first, we visit
+the left child, that is, G, then visit the root node, D, and then visit the right child, H.
+Next, we visit node B and then visit node E. In this manner, we have visited the left sub-tree with the root node A. So,
+next, we visit the root node A. After that, we will visit the right sub-tree with root node A. Here, we go to the left
+sub-tree with root node C, which is null, so next we visit node C, and then we visit the right child of node C, that is,
+node F.
+We visit the node by printing the visited node. In this case, we first recursively call the in order function with
+current.left_child, then we visit the root node, and finally we recursively call the in order function with
+current.right_child once more. The infix notation (also known as reverse Polish notation) is a commonly used notation to
+express arithmetic expressions where the operators are placed in-between the operands. Itis common to use this way of
+representing an arithmetic expression since this is the way we are normally taught in schools. For example, the operator
+is inserted (infixed) between the operands.
+In the preceding example of a binary tree, first, we visit root node A. Next, we go to the left sub-tree of root node A.
+The left sub-tree of node A has node B as the root, so we visit this root node and the go to the left sub-tree of root
+node B, that is, node D. We then visit nodes and go to the left sub-tree of root node D, and then we visit the left
+child, G, which is the sub-tree of root node D. Next, we visit the right child of the sub-tree with root node D, that
+is, node H. Next, we visit the right child of the sub-tree with root node B, that is, node E. So, in this manner, we
+have visited root node A and the left sub-tree with root node A. Now, we will visit the right sub-tree of root node A.
+Here, we visit the root node C, and then we go to the left sub-tree with root node C, which is null, so next, we visit
+the right child of node C, that is, node F.
+Breadth-first traversal starts from the root of the tree and then visits every node on the next level of the tree. Then,
+we move to the next level in the tree, and so on. This kind of tree traversal is breadth-first as it broadens the tree
+by traversing all the nodes in a level before going deep into the tree.
+In the preceding diagram, we start by visiting the root node at level 0, that is, the node with a value of 4. We visit
+this node by printing out its value. Next, we move to level 1 and visit all the nodes on this level, which are the
+nodes with the values 2 and 8. Finally, we move to the next level in the tree, that is, level 3, and we visit all the
+nodes at this level. The nodes at this level are 1, 3, 5, and 10.Thus, the breadth-first tree traversal for this tree
+is as follows—4, 2, 8, 1, 3, 5, and 10.This mode of traversal is implemented using a queue data structure. Starting with
+the root node, we push it into a queue. The node at the front of the queue is accessed (dequeued)and either printed or
+stored for later use. The left node is added to the queue followed by the right node. Since the queue is not empty, we
+repeat this process. The Python implementation of this algorithm will enqueue the root node 4, dequeue it, and visit the
+node. Next, nodes 2 and 8 are enqueued as they are the left and right nodes at the next level, respectively. Node 2 is
+dequeued so that it can be visited. Next, its left and right nodes, that is, nodes 1 and 3, are enqueued. At this point,
+the node at the front of the queue is 8. We dequeue and visit node 8, after which we enqueue its left and right nodes.
+This process continues until the queue is empty.
+Trees Chapter 6[ 157 ]Binary search trees binary search tree (BST) is a special kind of binary tree. It is one of the
+most important and commonly used data structures in computer science applications. A binary search tree is a tree that
+is structurally a binary tree, and stores data in its nodes very efficiently. It provides very fast search operations,
+and other operations such as insertion and deletion are also very easy and convenient. A binary tree is called a binary
+search tree if the value at any node in the tree is greater than the values in all the nodes of its left sub-tree, and
+less than or equal to the values of all the nodes of the right sub-tree.
+This is an example of a BST. In this tree, all of the nodes in the left sub-tree are less than or equal to the value of
+that node. Also, all of the nodes in the right sub-tree of this node are greater than that of the parent node. Testing
+our tree for the properties of a BST, we notice that all of the nodes in the left sub-tree of the root node have a value
+less than 5. Likewise, all the nodes in the right sub-tree have a value that is greater than 5. This property applies to
+all the nodes in a BST, with no exceptions. Considering another example of a binary tree, let's see if it is a binary
+search tree or not. Despite the fact that the following diagram looks similar to the previous diagram, it does not
+qualify as a BST as node 7 is greater than the root node 5; however, it is located to the left of the root node. Node 4
+is to the right sub-tree of its parent node 7, which is incorrect.
+The structure of the binary search tree makes searching a node that has a maximum or minimum value very easy. To find a
+node that has the smallest value in the tree, we start traversal from the root of the tree and visit the left node each
+time until we reach the end of the tree. Similarly, we traverse the right sub-tree recursively until we reach the end to
+find the node with the biggest value in the tree. For example, consider the following diagram; we move down from node 6
+to 3 and then from node 3 to 1 to find the node with the smallest value. Similarly, to find the maximum value node from
+the tree, we go down from the root to the right-hand side of the tree, then go from node 6 to node 8 and then node 8 to
+node 10 to find the node with the largest value.
+This concept of finding the minimum and maximum nodes applies to sub-trees, too. Thus, the minimum node in the sub-tree
+with root node 8 is node 7. Similarly, the node that has the maximum value within that sub-tree is 10. One of the most
+important operations to implement on a binary search tree is to insert data items in the tree. As we have already
+discussed, regarding the properties of the binary search tree, for each node in the tree, the left child nodes should
+contain the data less than their own value and the right child nodes should have data greater than their value. So, we
+have to ensure that the property of the binary search tree satisfies whenever we insert an item in the tree. For
+example, let's create a binary search tree by inserting data items 5, 3, 7, and 1 in the tree. Consider the following:
+Insert 5: We start with the first data item, 5. To do this, we will create a node with1.its data attribute set to 5,
+since it is the first node. Insert 3: Now, we want to add the second node with value 3 so that data value 32.is compared
+with the existing node value, 5, of the root node.
+In the preceding code, we will return the data if it was found, or None if the data was not found. We start searching
+from the root node. Next, if the data item to be searched for doesn’t exist in the tree, we return None to the client
+code. We might also have found the data—in that case, we return the data. If the data we are searching for is less than
+that of the current node, we go down the tree to the left. Furthermore, in the else part of the code, we check if the
+data we are looking for is greater than the data held in the current node, which means that we go down the tree to the
+right. Finally, we can write some client code to test how the BST works. We must create a tree and insert a few numbers
+between 1 and 10. Then, we search for all the numbers in that range.
+A binary search tree is a better choice compared to arrays and linked lists. A BST is fast foremost operations such as
+searching, insertion, and deletion, whereas arrays provide fast searching, but are comparatively slow in insertion and
+deletion operations. In a similar fashion, linked lists are efficient in performing insertion and deletion operations,
+but are slower when performing the search operation. The best-case running time complexity for searching an element from
+a binary search tree is O(log n), and the worst-case time complexity is O(n), whereas both best-case and worst-case time
+complexity for searching in lists is O(n).
+We have seen in the previous section that if nodes are inserted into a tree in a sequential order, it becomes slow and
+behaves more or less like a list; that is, each node has exactly one child node. To improve the performance of the tree
+data structure, we generally like to reduce the height of the tree as much as possible to balance the tree by filling up
+each rowing the tree. This process is called balancing the tree.
+There are different types of self-balancing trees, such as red-black trees, AA trees, and scapegoat trees. These balance
+the tree during each operation that modifies the tree, such as insert or delete. There are also external algorithms
+that balance a tree. The benefits of these are that you don't need to balance the tree on every single operation and
+can leave balancing to the point where you need it.
+An arithmetic expression is represented by a combination of operators and operands where the operators can be unary
+or binary. An arithmetic expression can also be represented using a binary tree, which is called an expression tree.
+This tree structure can also be used to parse arithmetic and Boolean expressions. In an expression tree, all the leaf
+nodes contain the operands and non-leaf nodes contain the operators. We should also note that the expression tree will
+have one of its sub-trees (right sub-tree or left sub-tree) empty in the case of a unary operator.
+The arithmetic expression can be expressed using three notations (that is, infix, postfix, and prefix), as discussed
+in the previous section on tree traversal. Due to this, it becomes easy to evaluate an expression tree for the given
+arithmetic expression. The reverse Polish notation provides faster calculations. We will show you how to construct the
+expression tree for the given postfix notation in the following subsection.
+Each element of the expr list is going to be either an operator or an operand. If we get an operand, then we embed it
+in a tree node and push it onto the stack. If we get an operator, on the other hand, then we embed the operator into a
+tree node and pop its two operands into the node's left and right children. Here, we have to take care to ensure that
+the first pogoes into the right child; otherwise, we will have problems with subtraction and division.
+In the preceding code, we pass in a node to the function. If the node contains an operand, then we simply return that
+value. If we get an operator, then we perform the operation that the operator represents on the node's two children.
+However, since one or more of the children could also contain either operators or operands, we call the calc() function
+recursively on the two child nodes (bearing in mind that all the children of every node are also nodes).
+A heap data structure is a specialization of a tree in which the nodes are ordered in a specific way. Heaps are divided
+into max heaps and min heaps. In a max heap, each parent node value must always be greater than or equal to its
+children. It follows that the root node must be the greatest value in the tree. In a min heap, each parent node must be
+less than or equal to both its children. As a consequence, the root node holds the lowest value.
+A ternary tree is a data structure where each node of the tree can contain up to 3 children. It is different compared to
+the binary search tree in the sense that a node in a binary tree can have a maximum of 2 children, whereas a node in
+the ternary tree can have a maximum of 3 children. The ternary tree data structure is also considered a special case of
+the tire data structure. In tire data structure, each node contains 26 pointers to its children when we osterie data
+structure to store strings in contrast to the ternary search tree data structure, where we have 3 pointers to its
+children.
+In this chapter, we looked at tree data structures and their uses. We studied binary trees in particular, which is a
+subtype of tree where each node has two children at most. We also looked at how a binary tree can be used as a
+searchable data structure with a BST. The breadth-first and depth-first search traversal modes were also implemented in
+Python by using queue recursion. We also looked at how a binary tree can be used to represent an arithmetic or a Boolean
+expression. We then built an expression tree to represent an arithmetic expression. Afterward, we showed you how to use
+a stack to parse an expression written in RPN, build-up the expression tree, and finally traverse it to get the result
+of the arithmetic expression. Finally, we mentioned heaps, a specialization of a tree structure. We have tried to at
+least lay down the theoretical foundation for the heap in this chapter so that we can go on to implement heaps for
+different purposes in upcoming chapters. In the next chapter, we will be discussing the details of hash tables and
+symbol tables.
+We have previously looked at arrays and lists, where items are stored in sequence and accessed by index number. Index
+numbers work well for computers. They are integers so they are fast and easy to manipulate. However, they don't always
+work so well for us. For example, if we have an address book entry, let's say at index number 56, that number doesn’t
+tell us much. There is nothing to link a particular contact with number 56. It is difficult to retrieve an entry from
+the list using the index value. In this chapter, we are going to look at a data structure that is better suited to this
+kind of problem: a dictionary. A dictionary uses a keyword instead of an index number, and it stores data in
+(key, value) pairs. So, if that contact was called James, we would probably use the keyword James to locate the contact.
+That is, instead of accessing the contact by calling contacts [56], we would use contacts James. Dictionaries are a
+widely used data structure, often built using hash tables. As the name suggests, hash tables rely on a concept called
+hashing. A hash table data structure stores the data in key/value pairs, where keys are obtained by applying a hash
+function to it. It stores the data in a very efficient way so that retrieval can be very fast. We will discuss althea
+related issues in this chapter.
+Hashing is a concept in which, when we give data of an arbitrary size to a function, we geta small simplified value.
+This function is called a hash function. Hashing uses a hash function that maps the given data to another range of data,
+so that a new range of data cane used as an index in the hash table. More specifically, we will use hashing to convert
+strings into integers. In our discussions in this chapter, we are using strings to convert into integers, however, it
+can be any other data type which can be converted into integers. Let’s look at an example to better understand the
+concept. We want to hash the expression hello world, that is, we want to get a numeric value that we could say
+represents the string.
+A perfect hashing function is the one by which we get a unique hash value for a given string (it can be any data type,
+here it is a string as we are limiting the discussion to strings for now). In practice, most of the hashing functions
+are imperfect and face collisions. This means that a hash function gives the same hash value to more than one string;
+that is undesirable because a perfect hash function should return a unique hash value to astringe. Normally, hashing
+functions need to be very fast, so trying to create a function that gives us a unique hash value for each string is
+normally not possible. Hence, we accept this fact and we know that we may get some collisions, that is, two or more
+strings may have the same hash value. Therefore, we try to find a strategy to resolve the collisions rather than
+trying to find a perfect hash function.
+Hashing and Symbol Tables Chapter 7[ 183 ]To avoid the collisions of the previous example, we could, for example, add a
+multiplier, so that the ordinal value of each character is multiplied by a value that continuously increases as we
+progress in the string. Next, the hash value of the string is obtained by adding the multiplied ordinal value of each
+character. To better understand the concept, refer to the following diagram: In the preceding diagram, the ordinal value
+of each character is progressively multiplied bay number. Note that the last row is the result of multiplying the
+values; row two has the ordinal values of each character; row three shows the multiplier value; and, in row four, we get
+values by multiplying the values of row two and three so that 104 x 1 equals 104.Finally, we add all of these multiplied
+values to get the hash value of the hello world string, that is, 6736.
+A hash table is a data structure where elements are accessed by a keyword rather than an index number, unlike in lists
+and arrays. In this data structure, the data items are stored inky/value pairs similar to dictionaries. A hash table
+uses a hashing function in order to find an index position where an element should be stored and retrieved. This gives
+us fast lookups since we are using an index number that corresponds to the hash value of the key. Each position in the
+hash table data structure is often called a slot or bucket and can storeman element. So, each data item in the form of
+(key, value) pairs would be stored in the hash table at a position that is decided by the hash value of the data. For
+example, the hashing function maps the input string names to a hash value; the hello world string is mapped to a hash
+value of 92, which finds a slot position in the hash table.
+It is important to note the difference between the size and count of a table. The size of actable refers to the total
+number of slots in the table (used or unused). The count of the table refers to the number of slots that are filled,
+meaning the number of actual (key-value)pairs that have been added to the table. Now, we have to decide on adding our
+hashing function to the table. We can use the same hash function that returns the sum of ordinal values for each
+character in the strings with alight change. Since our hash table has 256 slots, that means we need a hashing function
+that returns a value in the range of 1 to 256 (the size of the table). A good way of doing it into return the remainder
+of dividing the hash value by the size of the table since the remainder would surely be an integer value between 0 and
+255.
+Once we know the hash value of the key, it will be used to find the position where the element should be stored in the
+hash table. Hence, we need to find an empty slot. We start at the slot that corresponds to the hash value of the key.
+If that slot is empty, we insert our item there. However, if the slot is not empty and the key of the item is not the
+same as our current key, then we have a collision. It means that we have a hash value for the item that is the same
+assume previously stored item in the table. This is where we need to figure out a way to handle a conflict.
+Hashing and Symbol Tables Chapter 7[ 187 ]For example, in the following diagram, the hello world key string is already
+stored in the table, and there is a collision when a new string, world hello, gets the same hash value of92. Take a
+look at the following diagram: One way of resolving this kind of collision is to find another free slot from the
+position of the collision; this collision resolution process is called open addressing. We can do this by linearly
+looking for the next available slot by adding 1 to the previous hash value where we get the collision. We can resolve
+this conflict by adding 1 to the sum of the ordinal values of each character in the key string, which is further
+divided by the size of the hash table to obtain the hash value. This systematic way of visiting each slot is a linear
+way of resolving collisions and is called linear probing. Let’s consider an example as shown in the following diagram
+to better understand how we resolve this collision. The hash value for the eggs key string is 51. Now, there is a
+collision because we have already used this location to store data. Therefore, we add 1 in the hash value that is
+computed by the sum of the ordinal values of each character of the string to resolve the collision.
+To retrieve the elements from the hash table, the value stored corresponding to the key would be returned. Here, we
+will discuss the implementation of the retrieval method—the get() method. This method would return the value stored in
+the table corresponding to the given key. First of all, we compute the hash of the given key corresponding to the value
+that is to be retrieved.  Once we have the hash value of the key, we look up the hash table at the position of the hash
+value. If the key item is matched with the stored key value at that location, the corresponding value is retrieved. If
+that does not match, then we add 1 to the sum of the ordinal values of all the characters in the string, similar to what
+we did at the time of storing the data, and we look at the newly obtained hash value. We keep looking until we get our
+key element or we check all the slots in the hash table.
+In most cases in real-time applications, generally, we need to use strings for the keys. However, if necessary, you
+could use any other Python types. If you create your own class that you want to use as a key, you will need to override
+the special __hash__() function for that class, so that you get reliable hash values. Note that you would still have to
+calculate the modulo (%) of the hash value and the size of the hash table to get the slot. That calculation should
+happen in the hash table and not in the key class since the table knows its own size (the key class should not know
+anything about the table that it belongs to).
+In our example, we fixed the hash table size to 256. It is obvious that, when we add the elements to the hash table, we
+would begin to fill up the empty slots, and at some point, allot the slots would be filled up and the hash table will be
+full. To avoid such a situation, wean grow the size of the table when it is starting to get full. To grow the size of
+the hash table, we compare the size and the count in the table. size is the total number of the slots and count denotes
+the number of slots that contains elements. So, if count is equal to size, that means we have filled up the table. The
+load factor of the hash table is generally used to expand the size of the table; that gives us an indication of how
+many available slots of the table have been used. The load factor of the hash table miscomputed by dividing the number
+of used slots by the total number of slots in the table.
+As the load factor value approaches 1, it means that the table is going to be filled, and we need to grow the size of
+the table. It is better to grow the size of the table before it gets almost full, as the retrieval of elements from the
+table becomes slow when the table fills up. A value of 0.75 for the load factor may be a good value to grow the size of
+the table. The next question is how much we should increase the size of the table. One strategy would-be to simply
+double the size of the table.
+The collision resolution mechanism we used in our example was linear probing, which is an example of an open addressing
+strategy. Linear probing is simple since we use a fixed number of slots. There are other open addressing strategies as
+well, however, they all share the idea that there is an array of slots. When we want to insert a key, we check whether
+the slot already has an item or not. If it does, we look for the next available slot.
+hailing is another method to handle the problem of collision in hash tables. It solves this problem by allowing each
+slot in the hash table to store a reference to many items at the position of a collision. So, at the index of a
+collision, we are allowed to store many items in the hash table. Observe the following diagram—there is a collision for
+the strings, hello world and world hello. In the case of chaining, both items are allowed to store at the location of
+the 92 hash value using a list.
+Chaining then avoids conflict by allowing multiple elements to have the same hash value. Hence, there is no limit on
+the number of elements that can be stored in a hash table, whereas, in the case of linear probing, we had to fix the
+size of the table, which we need to later grow when the table is filled up, depending upon the load factor. Moreover,
+the hash table can hold more values than the number of available slots, since each slot holds a list that can grow.
+However, there is a problem in chaining—it becomes inefficient when a list grows at a particular hash value location.
+As a particular slot has many items, searching them can get very slow since we have to do a linear search through the
+list until we find the element that has the key we want. This can slow down retrieval, which is not good, since hash
+tables are meant to be efficient.
+In this chapter, we looked at hash tables. We looked at how to write a hashing function to turn string data into integer
+data. Then, we looked at how we can use hashed keys to quickly and efficiently look up the value that corresponds to a
+key. Further, we looked at the difficulties in the implementation of hash tables due to collisions in hash values. This
+led us to look at collision resolution strategies, so we discussed two important collision resolution methods, which are
+linear probing and chaining. In the last section of this chapter, we studied symbol tables, which are often built using
+hash tables. Symbol tables allow a compiler or an interpreter to look up a symbol (such as a variable, function, or
+class) that has been defined and retrieve all information about it. In the next chapter, we will talk about graphs and
+other algorithms.
+
